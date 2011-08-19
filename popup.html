@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  	<head>
+    	<title>FstFwd</title>
+		<link href="popup.css" rel="stylesheet" type="text/css">
+  	</head>
+	<body>
+		<h2>FstFwd</h2>
+	
+		<div class="track_input">
+			<div class="artist_container">
+				<label id="artist_label" for="artist_input"> Artist: </label>
+				<input id="artist_input" type="text" />
+			</div>
+			
+			<div class="song_container">
+				<label id="artist_label" for="song_input"> Song: </label>
+				<input id="song_input" type="text"  />
+			</div>
+			
+			<input id="submit" type="submit" value="Submit" />
+		</div>
+		
+		<div class="track_link" style="display:none;">
+			<span class="grooveshark_url"></span>
+		</div>
+		
+		<script type="text/javascript" src="jquery-1.6.2.min.js"></script>
+		<script type="text/javascript">
+		
+		var submitHandler = function(){
+			var artist = $('#artist_input').val();
+			var song = $('#song_input').val();
+			
+			groovesharkFetch(artist, song);
+		
+			$('.track_link').show();
+		};
+		
+		var groovesharkFetch = function(artist, song){
+			artist.replace(' ', '+')
+			song.replace(' ', '+');
+			
+			var middle = '+';
+			
+			if(song == ''){
+				middle = '';
+			} else {
+				console.log('hers the song' + song);
+			}
+
+			$.ajax({
+				url: 'http://tinysong.com/a/'+ artist + middle
+				+ song +'?format=json&key=b4385955bd9dd410287d0b3c7ffee5c8',
+				success: function(data){
+					console.log(data);
+					console.log(data.length);
+					
+					console.log(this.url);
+					//empty data
+					if(data.length === 2){
+						$('.grooveshark_url').html('No results found.');
+					} else {
+						data = data.replace(/"/g, '');
+						data = data.replace(/\\/g, '');
+						var grooveshark_url = unescape(data);
+					
+						console.log(grooveshark_url);
+						console.log("data: " + data);
+					
+ 						$('.grooveshark_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + grooveshark_url +"\", \"selected\":true});window.close();'>Go get some</a>");
+					}
+				},
+				error: function(){
+					console.log("there was an error.");
+				}
+			});
+		};
+		
+		$(document).ready(function(){
+			$('#submit').click(submitHandler);
+		});	
+		</script>
+	</body>
+</html>
