@@ -17,6 +17,10 @@ body {
   font-size: 12px;
 }
 
+input{
+  border: 1px solid #000000;
+}
+
 .header{
   display: block;
   height: 30px;

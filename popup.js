@@ -51,9 +51,23 @@ var spotifyFetch = function(query){
 			}
 		},
 		error: function(){
-			console.log("there was an error with spotify.");
+			console.log("there was an error with Spotify.");
 		}
 	});
+};
+
+//TODO: Finish me.
+var spotifyLookup = function(uri){
+  $.ajax({
+		url: 'http://ws.spotify.com/lookup/1/.json?uri=' + uri,
+		success: function(data){
+		  
+		},
+		error: function(){
+		  console.log("Error with Spotify lookup.")
+		}	
+	});
+		
 };
 
 //This api needs to call the real grooveshark api.
@@ -90,8 +104,8 @@ var lastfmFetch = function(artist, song){
     success: function(data){
       console.log("LastFm: ");
 			console.log(data);
-      if(!data || data.track.length == 0){
-				$('.spotify_url').html("No Last.FM results found.");
+      if(!data || !data.track || data.message == "Track not found"){
+				$('.last_fm_url').html("No Last.FM results found.");
 			} else {					
 				var last_fm_url = data.track.url;
 			
@@ -104,6 +118,11 @@ var lastfmFetch = function(artist, song){
       
   });
 };
+
+var lastfmLookup = function(url){
+  //deconstruct url to get artist and song
+  //call other api's.
+}
 
 $(document).ready(function(){
 	$('#submit').click(submitHandler);
