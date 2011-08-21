@@ -94,11 +94,11 @@ var lastfmFetch = function(artist, song){
       console.log("LastFm: ");
 			console.log(data);
       if(!data || data.track.length == 0){
-				$('.spotify_url').html("No last.fm Results found.");
+				$('.spotify_url').html("No Last.FM Results found.");
 			} else {					
 				var last_fm_url = data.track.url;
 			
-				$('.last_fm_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + last_fm_url +"\", \"selected\":true});window.close();'>Last.fm</a>");
+				$('.last_fm_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + last_fm_url +"\", \"selected\":true});window.close();'>"+ last_fm_url +"</a>");
 			}     
     },
     error: function(){

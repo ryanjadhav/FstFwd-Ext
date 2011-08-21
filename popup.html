@@ -10,26 +10,50 @@
 		<link href="popup.css" rel="stylesheet" type="text/css">
   	</head>
 	<body>
-		<h2>FstFwd</h2>
-	
-		<div class="track_input">
-			<div class="artist_container">
-				<label id="artist_label" for="artist_input"> Artist: </label>
-				<input id="artist_input" type="text" />
-			</div>
+	  
+	  <div class="header clearfix">
+		  <div class="header_title">FstFwd</div>
+
+	  	<div class="track_input">
+  			<div class="artist_container">
+  				<label id="artist_label" for="artist_input"> Artist: </label>
+  				<input id="artist_input" type="text" />
+  			</div>
 			
-			<div class="song_container">
-				<label id="artist_label" for="song_input"> Song: </label>
-				<input id="song_input" type="text"  />
-			</div>
+  			<div class="song_container">
+  				<label id="artist_label" for="song_input"> Song: </label>
+  				<input id="song_input" type="text"  />
+  			</div>
 			
-			<input id="submit" type="submit" value="Submit" />
-		</div>
+			  <div class="submit_container">
+  			  <input id="submit" type="submit" value="Submit" />
+  			</div>
+  		</div>
 		
-		<div class="track_link_container" style="display:none;">
-			<div class="grooveshark_url"></div>
-			<div class="spotify_url"></div>
-			<div class="last_fm_url"></div>
+		</div>
+			
+		<div class="track_link_container">
+		  
+      <div class="spotify_container service_container">
+			  <span class="service_header"> Spotify: </span>
+			  <div class="spotify_url"></div>
+			</div>
+			
+			<div class="rdio_container service_container">
+			  <span class="service_header"> Rdio: </span>
+			  <div class="rdio_url"></div>
+      </div>
+			
+			<div class="grooveshark_container service_container"> 
+			  <span class="service_header"> Grooveshark: </span>
+			  <div class="grooveshark_url"></div>
+			</div>
+			
+			<div class="last_fm_container service_container">
+			  <span class="service_header"> Last.Fm: </span>
+			  <div class="last_fm_url"></div>
+			</div>
+			
 		</div>
 		
 		<script type="text/javascript" src="jquery-1.6.2.min.js"></script>

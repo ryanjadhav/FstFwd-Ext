@@ -1,4 +1,57 @@
+.clearfix {
+	display: inline-block;
+}
+ 
+html[xmlns] .clearfix {
+	display: block;
+}
+ 
+* html .clearfix {
+	height: 1%;
+}
+
 body {
-  min-width:357px;
+  min-width:500px;
   overflow-x:hidden;
+  font-family: Helvetica, Arial, Times;
+  font-size: 12px;
+}
+
+.header{
+  display: block;
+  height: 30px;
+}
+
+.header_title{
+  display: inline;
+  font-size: 24px;
+  margin: 0;
+  padding: 0;
+  float: left;
+}
+
+
+.track_input{
+  float: right;
+}
+
+.artist_container, .song_container, .submit_container{
+  display: inline;
+}
+
+.service_container{
+  width: 236px;
+  border: 1px solid #000000;
+  display: inline-block;
+  margin: 5px;
+}
+
+/* clearfix */
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
 }

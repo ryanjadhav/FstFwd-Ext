@@ -4,13 +4,13 @@
   "description": "An extension that takes in a song title and provides you with a short hand link.",
   "browser_action": {
     "default_icon": "icon.png",
-	  "default_title": "FstFwd",
+    "default_title": "FstFwd",
 	  "popup": "popup.html"
   },
   "permissions": [
     "http://api.rdio.com/",
-	  "http://tinysong.com/",
-	  "http://ws.audioscrobbler.com/",
-	  "tabs"
+    "http://tinysong.com/",
+    "http://ws.audioscrobbler.com/",
+    "tabs"
   ]
 }
