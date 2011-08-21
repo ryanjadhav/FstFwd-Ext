@@ -2,11 +2,8 @@
 Rdio:
 API Key: c6rv7hex6jacaeujwhyesd3k
 Shared Secret: KKDtQNQKBE
-
-Last.fm:
-API Key: 0cc6c91b6bf535eddc5fd9526eec1bb6
-Secret: 8a1487b224d940518bcc9f17aae1d5b5
 */
+
 var submitHandler = function(){
 	var artist = $('#artist_input').val();
 	var song = $('#song_input').val();
@@ -44,12 +41,12 @@ var spotifyFetch = function(query){
 			console.log("Spotify: ");
 			console.log(data);
 			if(!data || data.tracks.length == 0){
-				$('.spotify_url').html("No Spotify Results found.");
+				$('.spotify_url').html("No Spotify results found.");
 			} else {					
 				var trackCode = data.tracks[0].href.split(':');
 				var spotify_url = 'http://open.spotify.com/track/' + trackCode[2];
 			
-				$('.spotify_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + spotify_url +"\", \"selected\":true});window.close();'>Spotify</a>");
+				$('.spotify_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + spotify_url +"\", \"selected\":true});window.close();'>" + spotify_url + "</a>");
 				
 			}
 		},
@@ -75,7 +72,7 @@ var groovesharkFetch = function(query){
 			
 				var grooveshark_url = unescape(data);
 			
-				$('.grooveshark_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + grooveshark_url +"\", \"selected\":true});window.close();'>Grooveshark</a>");
+				$('.grooveshark_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + grooveshark_url +"\", \"selected\":true});window.close();'>" + grooveshark_url + "</a>");
 			}
 		},
 		error: function(){
@@ -94,7 +91,7 @@ var lastfmFetch = function(artist, song){
       console.log("LastFm: ");
 			console.log(data);
       if(!data || data.track.length == 0){
-				$('.spotify_url').html("No Last.FM Results found.");
+				$('.spotify_url').html("No Last.FM results found.");
 			} else {					
 				var last_fm_url = data.track.url;
 			

@@ -41,9 +41,15 @@ body {
 
 .service_container{
   width: 236px;
-  border: 1px solid #000000;
   display: inline-block;
   margin: 5px;
+  float: left;
+}
+
+.service_data{
+  height: 50px;
+  border: 1px solid #000000;
+  word-wrap: break-word;
 }
 
 /* clearfix */
