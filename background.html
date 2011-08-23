@@ -5,28 +5,31 @@
  * LICENSE file.
  *
 -->
-<!--http://rd.io/x/QV5PjDdOy7Q
 <html>
 	<head>
-		/*
-    	<script type="text/javascript" src="chrome_ex_oauthsimple.js"></script>
+		
+    <script type="text/javascript" src="chrome_ex_oauthsimple.js"></script>
 		<script type="text/javascript" src="chrome_ex_oauth.js"></script>
 		<script type="text/javascript">
-		      var scope = [];
-		
+		 	var DOCLIST_SCOPE = 'http://api.rdio.com/1/';
+		 	var DOCLIST_FEED = 'http://api.rdio.com/1/';
+
 			var oauth = ChromeExOAuth.initBackgroundPage({
 				'request_url': 'http://api.rdio.com/oauth/request_token',
 				'authorize_url': 'https://www.rdio.com/oauth/authorize',
 				'access_url': 'http://api.rdio.com/oauth/access_token',
 				'consumer_key': 'c6rv7hex6jacaeujwhyesd3k',
 				'consumer_secret': 'KKDtQNQKBE',
-			    'scope': scope,
-			    'app_name': 'FstFwd'
+			  'scope': DOCLIST_SCOPE,
+			  'app_name': 'FstFwd'
 			});
+			
+      function logout() {
+        oauth.clearTokens();
+      };
 		</script>
-		*/
+		
   </head>
   <body>
   </body>
 </html>
--->

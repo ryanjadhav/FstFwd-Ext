@@ -17,7 +17,7 @@ body {
   font-size: 12px;
 }
 
-input{
+#artist_input, #song_input{
   border: 1px solid #000000;
 }
 
