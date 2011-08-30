@@ -7,61 +7,50 @@
 <html>
   	<head>
     	<title>FstFwd</title>
-		<link href="popup.css" rel="stylesheet" type="text/css">
+			<link href="popup.css" rel="stylesheet" type="text/css">
+			<link href='http://fonts.googleapis.com/css?family=Aldrich' rel='stylesheet' type='text/css'>
   	</head>
 	<body>
 	  
 	  <div class="header clearfix">
-		  <div class="header_title">FstFwd</div>
-
+	  
 	  	<div class="track_input">
-  			<div class="artist_container">
-  				<label id="artist_label" for="artist_input"> Artist: </label>
-  				<input id="artist_input" type="text" />
-  			</div>
-			
-  			<div class="song_container">
-  				<label id="artist_label" for="song_input"> Song: </label>
-  				<input id="song_input" type="text"  />
-  			</div>
-			
-			  <div class="submit_container">
-  			  <input id="submit" type="submit" value="Submit" />
-  			</div>
-  		</div>
-		
+	  		<div class="track_container">
+	  		 	<label id="artist_label" for="song_input"> Enter URL: </label>
+					<input id="track_input" type="text" />
+	  		</div>
+	  	</div>
+	  	
+	  	<div class="header_title">FstFwd</div>
+
 		</div>
 			
 		<div class="track_link_container">
 		  
       <div class="spotify_container service_container">
 			  <span class="service_header"> Spotify: </span>
-			  <input id="spotify_auth" type="submit" value="Spotify" />
-			  <div class="service_data">
+			  <div class="service_data" service="spotify">
 			    <div class="spotify_url"></div>
         </div>
 			</div>
 			
 			<div class="rdio_container service_container">
 			  <span class="service_header"> Rdio: </span>
-  			<input id="rdio_auth" type="submit" value="Rdio" />
-			  <div class="service_data">
+			  <div class="service_data" service="rdio">
 			    <div class="rdio_url"></div>
         </div>
       </div>
 			
 			<div class="grooveshark_container service_container"> 
 			  <span class="service_header"> Grooveshark: </span>
-  			<input id="grooveshark_auth" type="submit" value="Grooveshark" />	
-			  <div class="service_data">
+			  <div class="service_data" service="grooveshark">
 			    <div class="grooveshark_url"></div>
 			  </div>
 			</div>
 			
 			<div class="last_fm_container service_container">
 			  <span class="service_header"> Last.FM: </span>
-  			<input id="last_fm_auth" type="submit" value="Last.FM" />			 
-			  <div class="service_data">
+			  <div class="service_data" service="lastfm">
 			    <div class="last_fm_url"></div>
 			  </div>
 			</div>
