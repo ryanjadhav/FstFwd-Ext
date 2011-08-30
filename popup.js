@@ -2,39 +2,35 @@
 	var bgPage = chrome.extension.getBackgroundPage();
 
 	//private artist and song.
-	var artist, song;
+	//var artist, song;
 	
-	//private function to create a standard query
+	
+	/**
+	* Utility Functions:
+	*/
+	//create a standard query
 	var createQuery = function(artist, song){	
+		var middle_concat;
 		artist = artist.replace(/\s/g, '+');
 		song = song.replace(/\s/g, '+');
-		
-		//middle concatinator
-		var middle_concat = '+';
-		
-		if(song == ''){
-			middle_concat = '';
-		}
+		song ? middle_concat = '+' : middle_contcat = '';
 		
 		return artist + middle_concat + song;
 	};
 	
-	//parse user urls
-	var parseUrl = function(url, callback){
-		url = url.replace('http://', '');
-		var splitUrl = url.split('/');
-		
-		if(splitUrl[0] == 'open.spotify.com'){
-			spotifyLookup(splitUrl[2], function(data){
-				callback.call(this, data);
-			});
-		} else if(splitUrl[0] == 'last.fm' || 'www.last.fm'){
-			callback.call(this, lastfmLookup(splitUrl[2], splitUrl[4]));
-		} else {
-			console.log('Not a Recognized URL.');
-		}
+	//create a query for post header parameters	
+	var stringify = function(parameters) {
+	  var params = [];
+	  for(var p in parameters) {
+	    params.push(p + '=' + parameters[p]);
+	  }
+	  
+	  return params.join('&');
 	};
 	
+	/**
+	* API Functions:
+	*/
 	//look up spotify data with user uri, return track info for queries
 	var spotifyLookup = function(uri, callback){
 		console.log('performing a spotify lookup');
@@ -62,9 +58,10 @@
 
 	//private function for ajax request to spotify
 	var spotifyFetch = function(trackInfo){
+		console.log('performing a spotify fetch');
+
 		var query = createQuery(trackInfo.artist, trackInfo.track);
-		
-		console.log(query);
+		console.log('query: ' + query);
 
 		$.ajax({
 			url: 'http://ws.spotify.com/search/1/track.json?q=' + query,
@@ -87,13 +84,16 @@
 	};
 	
 	//TODO
-	var grooveSharkLookup = function(uri){
+	var groovesharkLookup = function(uri){
 		//Waiting on grooveshark api.
 	}
 	
 	//This api needs to call the real grooveshark api.
 	var groovesharkFetch = function(trackInfo){
+		console.log('performing a grooveshark fetch');
+
 		var query = createQuery(trackInfo.artist, trackInfo.track);
+		console.log('query: ' + query);		
 	
 		$.ajax({
 			url: 'http://tinysong.com/a/'+ query
@@ -119,18 +119,24 @@
 	};
 	
 	var lastfmLookup = function(artist, track){
+		console.log('performing last fm lookup');
+
 	  return {
 	  	'artist': artist,
 	  	'track': track
 	  };
 	};
 	
-	var lastfmFetch = function(artist, song){
-	  artist = artist.replace(' ', '+');
-		song = song.replace(' ', '+');
+	var lastfmFetch = function(trackInfo){
+		console.log('performing last fm fetch');
+
+		trackInfo.artist = trackInfo.artist.replace(/\s/g, '+');
+		trackInfo.track = trackInfo.track.replace(/\s/g, '+');
+		
+		console.log(trackInfo);
 		
 	  $.ajax({
-	    url: 'http://ws.audioscrobbler.com/2.0/?method=track.getinfo&format=json&api_key=0cc6c91b6bf535eddc5fd9526eec1bb6&artist=' + artist + '&track=' + song,
+	    url: 'http://ws.audioscrobbler.com/2.0/?method=track.getinfo&format=json&api_key=0cc6c91b6bf535eddc5fd9526eec1bb6&artist=' + trackInfo.artist + '&track=' + trackInfo.track,
 	    success: function(data){
 	      console.log("Object from LastFm: ");
 				console.log(data);
@@ -149,56 +155,88 @@
 	  });
 	};
 	
-	var stringify = function(parameters) {
-	  var params = [];
-	  for(var p in parameters) {
-	    params.push(p + '=' + parameters[p]);
-	  }
-	  return params.join('&');
+	var rdioLookup = function(userUrl, callback){
+		callback.call(this, bgPage.oauth.authorize(function(trackInfo){
+			console.log('performing a rdio lookup');			
+			var params2 = {
+		  	'method' : 'getObjectFromShortCode',
+				'short_code' : userUrl
+		  };
+		    
+		  var params = {	
+		    'method': 'POST',
+		    'body': stringify(params2)
+		  };
+		  		 		 	
+		 	callback.call(this, bgPage.oauth.sendSignedRequest(bgPage.DOCLIST_FEED, function(resp, xhr){
+		  	var data = JSON.parse(resp);	
+				console.log('Rdio Lookup:')
+				console.log(data);
+				var trackInfo = {
+					'artist': data.result.artist,
+					'track': data.result.name 
+				};
+				callback.call(this, trackInfo);
+			}, params));
+		}));	
 	};
 	
-	var handleRdioSuccess = function(resp, xhr) {
-		var data = JSON.parse(resp);	
-		console.log(data);
-		console.log(xhr);
-		
-		var rdio_url = data.result.results[0].shortUrl;
-				
-		$('.rdio_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + rdio_url +"\", \"selected\":true});window.close();'>"+ rdio_url +"</a>");
-	};
-	
-	//TODO
-	var rdioOnAuthorizedLookup = function(){
-	
-	};
-	
-	var rdioOnAuthorizedFetch = function(){
-		var artist = $('#artist_input').val();
-		var song = $('#song_input').val();
-		
-		var query = createQuery(artist, song);
-	
-	  var params2 = {
-	  	'method' : 'search',
-			'query' : query,
-			'types' : 'Track',
-			'count' : '1'
-	  };
-	    
-	  var params = {	
-	    'method': 'POST',
-	    'body': stringify(params2)
-	  };
-	 		 	
-	  bgPage.oauth.sendSignedRequest(bgPage.DOCLIST_FEED, handleRdioSuccess, params);
-	};
-	
-	var rdioLookup = function(){
-		bgPage.oauth.authorize(rdioOnAuthorizedLookup);
-	}
 
-	var rdioFetch = function(){
-		bgPage.oauth.authorize(rdioOnAuthorizedFetch);
+	var rdioFetch = function(trackInfo){
+		bgPage.oauth.authorize(function(){			
+			var query = createQuery(trackInfo.artist, trackInfo.track);
+			
+			console.log(trackInfo.artist);
+		
+		  var params2 = {
+		  	'method' : 'search',
+				'query' : query,
+				'types' : 'Track',
+				'count' : '1'
+		  };
+		    
+		  var params = {	
+		    'method': 'POST',
+		    'body': stringify(params2)
+		  };
+		 		 	
+		  bgPage.oauth.sendSignedRequest(bgPage.DOCLIST_FEED, function(resp, xhr){
+		  	var data = JSON.parse(resp);	
+				console.log('Rdio Fetch:')
+				console.log(data);
+		
+				var rdio_url = data.result.results[0].shortUrl;						
+				$('.rdio_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + rdio_url +"\", \"selected\":true});window.close();'>"+ rdio_url +"</a>");	
+		  }, params);
+		});
+	};
+	
+	/**
+	*	DOM functions:
+	*/
+	//parse user entered urls
+	var parseUrl = function(url, callback){
+		url = url.replace('http://', '');
+		var splitUrl = url.split('/');
+		
+		console.log('split url:' + splitUrl[0]);
+		
+		if(splitUrl[0] == 'open.spotify.com'){
+			spotifyLookup(splitUrl[2], function(data){
+				callback.call(this, data);
+			});
+		} else if(splitUrl[0] == 'last.fm' || splitUrl[0] == 'www.last.fm'){
+			callback.call(this, lastfmLookup(splitUrl[2], splitUrl[4]));
+		} else if(splitUrl[0] == 'rd.io') {
+			console.log('rdio');
+			rdioLookup(splitUrl[2], function(data){
+				callback.call(this, data);
+				console.log('inside rdio');
+				console.log(data);
+			});
+		} else {
+			console.log('Not a Recognized URL.');
+		}
 	};
 	
 	$(document).ready(function(){
@@ -207,12 +245,19 @@
 			var userUrl = $('#track_input').val();
 			
 			parseUrl(userUrl, function(data){
+				console.log('trackInfo: ');
 				console.log(data);
 				if(selectedService == 'spotify'){
 					spotifyFetch(data);
 				}	else if(selectedService == 'lastfm'){
-					lastfmFetch(data.artist, data.track);
-				}			
+					lastfmFetch(data);
+				}	else if(selectedService == 'rdio'){
+					rdioFetch(data);
+				} else if (selectedService == 'grooveshark'){
+					groovesharkFetch(data);
+				}	else {
+					console.log('Error unspecifed service.');
+				}	
 			});			
 		});
 	});	

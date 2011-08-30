@@ -95,12 +95,14 @@ ChromeExOAuth.initBackgroundPage = function(oauth_config) {
  *         token {String} The OAuth access token.
  *         secret {String} The OAuth access token secret.
  */
-ChromeExOAuth.prototype.authorize = function(callback) {
+ChromeExOAuth.prototype.authorize = function(callback, parameters) {
+	console.log(parameters);
   if (this.hasToken()) {
     callback(this.getToken(), this.getTokenSecret());
   } else {
-    window.chromeExOAuthOnAuthorize = function(token, secret) {
-      callback(token, secret);
+    window.chromeExOAuthOnAuthorize = function(token, secret, parameters) {
+    	console.log(parameters);
+      callback(token, secret, parameters);
     };
     chrome.tabs.create({ 'url' :chrome.extension.getURL(this.callback_page) });
   }
