@@ -76,9 +76,13 @@
 				
 					$('.spotify_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + spotify_url +"\", \"selected\":true});window.close();'>" + spotify_url + "</a>");				
 				}
+				$('.spinner').hide();
+
 			},
 			error: function(){
 				console.log("There was an error with Spotify.");
+				$('.spinner').hide();
+
 			}
 		});	
 	};
@@ -111,9 +115,13 @@
 				
 					$('.grooveshark_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + grooveshark_url +"\", \"selected\":true});window.close();'>" + grooveshark_url + "</a>");
 				}
+				$('.spinner').hide();
+
 			},
 			error: function(){
 				console.log("There was an error with Grooveshark.");
+				$('.spinner').hide();
+
 			}
 		});
 	};
@@ -146,10 +154,12 @@
 					var last_fm_url = data.track.url;
 				
 					$('.last_fm_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + last_fm_url +"\", \"selected\":true});window.close();'>"+ last_fm_url +"</a>");
-				}     
+				}   
+				$('.spinner').hide();
 	    },
 	    error: function(){
 	      console.log("there was an error with last.fm.");
+	      $('.spinner').hide();
 	    }
 	      
 	  });
@@ -182,7 +192,7 @@
 	};
 	
 
-	var rdioFetch = function(trackInfo){
+	var rdioFetch = function(trackInfo){		
 		bgPage.oauth.authorize(function(){			
 			var query = createQuery(trackInfo.artist, trackInfo.track);
 			
@@ -208,6 +218,9 @@
 				var rdio_url = data.result.results[0].shortUrl;						
 				$('.rdio_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + rdio_url +"\", \"selected\":true});window.close();'>"+ rdio_url +"</a>");	
 		  }, params);
+		  
+		  $('.spinner').hide();
+
 		});
 	};
 	
@@ -239,11 +252,15 @@
 	};
 	
 	$(document).ready(function(){
+		$('.spinner').hide();
+	
 		$('.track_link_container').delegate('.service_button', 'click', function(){
 			var selectedService = $(this).attr('service');
 			var userUrl = $('#track_input').val();
 			
 			parseUrl(userUrl, function(data){
+				$('.spinner').show();
+
 				$('#track_input').removeClass('error');
 				console.log('trackInfo: ');
 				console.log(data);

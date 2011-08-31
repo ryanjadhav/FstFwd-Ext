@@ -12,10 +12,10 @@ html[xmlns] .clearfix {
 
 body {
   min-width:500px;
-  overflow-x:hidden;
-  font-family: Helvetica, Arial, Times;
+  overflow-x: hidden;
+  font-family: 'Lucida Grande', Arial, san-serif, "Lucida Grande", sans-serif;
   font-size: 12px;
-	background: url("bg.png") repeat scroll 0 0 #EFEFEF;
+	background: url("images/bg.png") repeat scroll 0 0 #EFEFEF;
 }
 
 #artist_input, #song_input{
@@ -25,6 +25,7 @@ body {
 .header{
   display: block;
   height: 30px;
+  margin-bottom: 20px;
 }
 
 .header_title{
@@ -35,6 +36,15 @@ body {
   float: left;
   font-family: 'Aldrich', sans-serif;
   text-shadow: 0 1px 0 #FFFFFF;
+}
+
+.spinner{
+	background: url("images/ajax-loader.gif") repeat scroll 0 0;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	margin-top: 5px;
+	margin-left: 5px;
 }
 
 .url_label{
@@ -51,7 +61,8 @@ body {
 	);
 	text-align: center;
 	border-radius: 5px 0 0 5px;
-	box-shadow: 1px 1px 1px #000000;
+	border: 1px solid #000000;
+	border-right: 0;
 }
 
 .track_input{
@@ -64,8 +75,7 @@ body {
 	display: inline-block;
 	background: whiteSmoke;
 	border-radius: 0 5px 5px 0;
-	box-shadow: 1px 1px 1px #000000;
-	border: 0;
+	border: 1px solid #000000;
 }
 
 .artist_container, .song_container, .track_container, .submit_container{
@@ -111,7 +121,8 @@ body {
 	);
 	text-align: center;
 	border-radius: 5px 0 0 5px;
-	box-shadow: 1px 1px 1px #000000;
+	border: 1px solid #000000;
+	border-right: 0;
 	cursor: pointer;
 }
 
@@ -221,24 +232,19 @@ body {
 }
 
 .button_title{
-	padding: 7px 0;
+	padding: 8px 0;
 	text-shadow: 0px -1px 0px #808080;
 	color: #FFFFFF;
-	font-size: 16px;
-}
-
-#grooveshark_button .button_title{
 	font-size: 12px;
-	padding: 8px 0;
 }
 
 .service_result{
-	width: 420px;
+	width: 416px;
 	height: 30px;
 	display: inline-block;
 	background: whiteSmoke;
 	border-radius: 0 5px 5px 0;
-	box-shadow: 1px 1px 1px #000000;
+	border: 1px solid #000000;
 }
 
 .results_link{
