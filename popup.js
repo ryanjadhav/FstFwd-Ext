@@ -228,23 +228,23 @@
 		} else if(splitUrl[0] == 'last.fm' || splitUrl[0] == 'www.last.fm'){
 			callback.call(this, lastfmLookup(splitUrl[2], splitUrl[4]));
 		} else if(splitUrl[0] == 'rd.io') {
-			console.log('rdio');
 			rdioLookup(splitUrl[2], function(data){
 				callback.call(this, data);
-				console.log('inside rdio');
-				console.log(data);
 			});
+		} else if(splitUrl[0] =='grooveshark.com'){
+			groovesharkLookup(data);
 		} else {
 			console.log('Not a Recognized URL.');
 		}
 	};
 	
 	$(document).ready(function(){
-		$('.track_link_container').delegate('.service_data', 'click', function(){
+		$('.track_link_container').delegate('.service_button', 'click', function(){
 			var selectedService = $(this).attr('service');
 			var userUrl = $('#track_input').val();
 			
 			parseUrl(userUrl, function(data){
+				$('#track_input').removeClass('error');
 				console.log('trackInfo: ');
 				console.log(data);
 				if(selectedService == 'spotify'){
@@ -256,6 +256,7 @@
 				} else if (selectedService == 'grooveshark'){
 					groovesharkFetch(data);
 				}	else {
+					$('#track_input').addClass('error');
 					console.log('Error unspecifed service.');
 				}	
 			});			

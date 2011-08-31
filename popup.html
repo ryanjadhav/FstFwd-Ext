@@ -13,48 +13,58 @@
 	<body>
 	  
 	  <div class="header clearfix">
-	  
+	  	 
+	  	<div class="header_title">FstFwd</div>
+
 	  	<div class="track_input">
 	  		<div class="track_container">
-	  		 	<label id="artist_label" for="song_input"> Enter URL: </label>
+	  		 	<div id="track_label" class='url_label'> 
+	  		 		<div class="button_title"> URL: </div>
+	  		 	</div>
 					<input id="track_input" type="text" />
 	  		</div>
 	  	</div>
-	  	
-	  	<div class="header_title">FstFwd</div>
-
+	 
 		</div>
-			
+		
 		<div class="track_link_container">
-		  
-      <div class="spotify_container service_container">
-			  <span class="service_header"> Spotify: </span>
-			  <div class="service_data" service="spotify">
-			    <div class="spotify_url"></div>
-        </div>
+
+			<div class="music_service_container">
+				<div id="spotify_button" class='service_button' service='spotify'>
+					<div class='button_title'>Spotify</div>
+				</div>
+				<div class='service_result'>
+					<div class='results_link spotify_url'></div>
+				</div>
 			</div>
 			
-			<div class="rdio_container service_container">
-			  <span class="service_header"> Rdio: </span>
-			  <div class="service_data" service="rdio">
-			    <div class="rdio_url"></div>
-        </div>
-      </div>
-			
-			<div class="grooveshark_container service_container"> 
-			  <span class="service_header"> Grooveshark: </span>
-			  <div class="service_data" service="grooveshark">
-			    <div class="grooveshark_url"></div>
-			  </div>
+			<div class="music_service_container">
+				<div id="rdio_button" class='service_button' service='rdio'>
+					<div class='button_title'>Rdio</div>
+				</div>
+				<div class='service_result'>
+					<div class='results_link rdio_url'></div>
+				</div>
 			</div>
 			
-			<div class="last_fm_container service_container">
-			  <span class="service_header"> Last.FM: </span>
-			  <div class="service_data" service="lastfm">
-			    <div class="last_fm_url"></div>
-			  </div>
+			<div class="music_service_container">
+				<div id='grooveshark_button' class='service_button' service='grooveshark'>
+					<div class='button_title'>Grooveshark</div>
+				</div>
+				<div class='service_result'>
+					<div class='results_link grooveshark_url'></div>
+				</div>
 			</div>
 			
+			<div class="music_service_container">
+				<div id="last_fm_button" class='service_button' service='lastfm'>
+					<div class='button_title'>Last.FM</div>
+				</div>
+				<div class='service_result'>
+					<div class='results_link last_fm_url'></div>
+				</div>
+			</div>
+		
 		</div>
 		
 		<script type="text/javascript" src="jquery-1.6.2.min.js"></script>

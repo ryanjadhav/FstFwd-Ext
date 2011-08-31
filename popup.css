@@ -30,19 +30,42 @@ body {
 .header_title{
   display: inline;
   font-size: 24px;
-  margin: 0;
+  margin: 7px 0 0 0;
   padding: 0;
-  float: right;
+  float: left;
   font-family: 'Aldrich', sans-serif;
   text-shadow: 0 1px 0 #FFFFFF;
 }
 
+.url_label{
+	width: 50px;
+	height: 32px;
+	float: left;
+	background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+   	color-stop(0.45, rgb(148,148,146)),
+    color-stop(0.73, rgb(194,194,194)),
+    color-stop(0.87, rgb(217,210,217))
+	);
+	text-align: center;
+	border-radius: 5px 0 0 5px;
+	box-shadow: 1px 1px 1px #000000;
+}
+
 .track_input{
-  float: left;
+  float: right;
 }
 
 #track_input{
-	width: 250px;
+ 	width: 325px;
+	height: 30px;
+	display: inline-block;
+	background: whiteSmoke;
+	border-radius: 0 5px 5px 0;
+	box-shadow: 1px 1px 1px #000000;
+	border: 0;
 }
 
 .artist_container, .song_container, .track_container, .submit_container{
@@ -68,6 +91,163 @@ body {
 .service_data:hover{
 	cursor: pointer;
 	background: gray;
+}
+
+.music_service_container{
+	margin: 10px 0;
+}
+
+.service_button{
+	width: 80px;
+	height: 30px;
+	float: left;
+	background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+   	color-stop(0.45, rgb(148,148,146)),
+    color-stop(0.73, rgb(194,194,194)),
+    color-stop(0.87, rgb(217,210,217))
+	);
+	text-align: center;
+	border-radius: 5px 0 0 5px;
+	box-shadow: 1px 1px 1px #000000;
+	cursor: pointer;
+}
+
+#spotify_button{
+	background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.45, rgb(38,207,12)),
+    color-stop(0.73, rgb(70,227,45)),
+    color-stop(0.87, rgb(91,235,113))
+	);
+}
+
+#rdio_button{
+	background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.45, rgb(58,12,207)),
+    color-stop(0.73, rgb(45,112,227)),
+    color-stop(0.87, rgb(91,132,235))
+	);
+}
+
+#grooveshark_button{
+	background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.45, rgb(207,207,12)),
+    color-stop(0.73, rgb(206,227,45)),
+    color-stop(0.87, rgb(232,237,92))
+	);
+}
+
+#last_fm_button{
+	background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.45, rgb(207,12,12)),
+    color-stop(0.73, rgb(227,45,45)),
+    color-stop(0.87, rgb(235,91,91))
+	);
+}
+
+.service_button:hover{
+	background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+   	color-stop(0.65, rgb(148,148,146)),
+    color-stop(0.93, rgb(194,194,194)),
+    color-stop(0.97, rgb(217,210,217))
+	);
+}
+
+#spotify_button:hover{
+	background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.65, rgb(38,207,12)),
+    color-stop(0.93, rgb(70,227,45)),
+    color-stop(0.97, rgb(91,235,113))
+	);
+}
+
+#grooveshark_button:hover{
+	background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.65, rgb(207,207,12)),
+    color-stop(0.93, rgb(206,227,45)),
+    color-stop(0.97, rgb(232,237,92))
+	);
+}
+
+#rdio_button:hover{
+	background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.65, rgb(58,12,207)),
+    color-stop(0.93, rgb(45,112,227)),
+    color-stop(0.97, rgb(91,132,235))
+	);
+}
+
+#last_fm_button:hover{
+	background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.65, rgb(207,12,12)),
+    color-stop(0.93, rgb(227,45,45)),
+    color-stop(0.97, rgb(235,91,91))
+	);
+
+}
+
+.service_button:active{
+  box-shadow: 1px 1px 1px #000000;
+  box-shadow:inset 0px 0px 1px #000000;
+}
+
+.button_title{
+	padding: 7px 0;
+	text-shadow: 0px -1px 0px #808080;
+	color: #FFFFFF;
+	font-size: 16px;
+}
+
+#grooveshark_button .button_title{
+	font-size: 12px;
+	padding: 8px 0;
+}
+
+.service_result{
+	width: 420px;
+	height: 30px;
+	display: inline-block;
+	background: whiteSmoke;
+	border-radius: 0 5px 5px 0;
+	box-shadow: 1px 1px 1px #000000;
+}
+
+.results_link{
+	padding: 9px 5px;
+	font-size: 11px;
+}
+
+.error{
+  box-shadow:inset 0px 0px 1px red;
 }
 
 /* clearfix */
