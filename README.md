@@ -12,6 +12,6 @@ How To Use:
 
 Limitations:
 
-Due to a limitation with the Grooveshark api FstFwd only accepts groveshark.com URL and NOT Tinysong urls. However the app will return Tinysong urls.
+Due to a limitation with the Grooveshark API FstFwd only accepts groveshark.com URL and NOT Tinysong urls. However the app will return Tinysong urls.
 
 ![UI Mockup](https://img.skitch.com/20110902-mg23a5rnt3hhu4nanm18nt4t9e.jpg)
