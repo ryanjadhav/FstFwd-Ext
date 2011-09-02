@@ -250,7 +250,7 @@
 				callback.call(this, data);
 			});
 		} else if(splitUrl[0] =='grooveshark.com' || splitUrl[0] == 'www.grooveshark.com'){
-			callback.call(this, groovesharkLookup('', splitUrl[3]);
+			callback.call(this, groovesharkLookup('', splitUrl[3]));
 		} else {
 			console.log('Not a Recognized URL.');
 		}

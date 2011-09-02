@@ -11,7 +11,7 @@ html[xmlns] .clearfix {
 }
 
 body {
-  min-width:500px;
+  min-width:550px;
   overflow-x: hidden;
   font-family: 'Lucida Grande', Arial, san-serif, "Lucida Grande", sans-serif;
   font-size: 12px;
@@ -25,13 +25,13 @@ body {
 .header{
   display: block;
   height: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .header_title{
   display: inline;
-  font-size: 24px;
-  margin: 7px 0 0 0;
+  font-size: 48px;
+  margin: 10px 0 0 0;
   padding: 0;
   float: left;
   font-family: 'Aldrich', sans-serif;
@@ -43,13 +43,13 @@ body {
 	width: 16px;
 	height: 16px;
 	display: inline-block;
-	margin-top: 5px;
+	margin-top: 21px;
 	margin-left: 5px;
 }
 
 .url_label{
 	width: 50px;
-	height: 32px;
+	height: 30px;
 	float: left;
 	background-image: -webkit-gradient(
     linear,
@@ -70,12 +70,18 @@ body {
 }
 
 #track_input{
- 	width: 325px;
-	height: 30px;
+ 	width: 280px;
+	height: 28px;
 	display: inline-block;
 	background: whiteSmoke;
 	border-radius: 0 5px 5px 0;
 	border: 1px solid #000000;
+}
+
+.instructions{
+	text-transform: uppercase;
+	font-size: 11px;
+	margin-bottom: 3px;
 }
 
 .artist_container, .song_container, .track_container, .submit_container{
@@ -104,7 +110,7 @@ body {
 }
 
 .music_service_container{
-	margin: 10px 0;
+	margin-bottom: 10px;
 }
 
 .service_button{
@@ -239,7 +245,7 @@ body {
 }
 
 .service_result{
-	width: 416px;
+	width: 466px;
 	height: 30px;
 	display: inline-block;
 	background: whiteSmoke;
