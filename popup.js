@@ -88,9 +88,14 @@
 	};
 	
 	//TODO
-	var groovesharkLookup = function(uri){
-		//Waiting on grooveshark api.
-	}
+	var groovesharkLookup = function(artist, track){
+		console.log('performing grooveshark lookup');
+
+	  return {
+	  	'artist': artist,
+	  	'track': track
+	  };	
+	};
 	
 	//This api needs to call the real grooveshark api.
 	var groovesharkFetch = function(trackInfo){
@@ -244,8 +249,8 @@
 			rdioLookup(splitUrl[2], function(data){
 				callback.call(this, data);
 			});
-		} else if(splitUrl[0] =='grooveshark.com'){
-			groovesharkLookup(data);
+		} else if(splitUrl[0] =='grooveshark.com' || splitUrl[0] == 'www.grooveshark.com'){
+			callback.call(this, groovesharkLookup('', splitUrl[3]);
 		} else {
 			console.log('Not a Recognized URL.');
 		}
