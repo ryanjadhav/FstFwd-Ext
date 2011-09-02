@@ -1,7 +1,7 @@
 {
   "name": "FstFwd",
   "version": "1.0",
-  "description": "An extension that takes in a song title and provides you with a short link.",
+  "description": "An extension that takes in a link from Rdio, Grooveshark, Last.FM or Spotify and transforms it into another link from one of those services.",
   "background_page": "background.html",
   "browser_action": {
     "default_icon": "images/icon.png",
