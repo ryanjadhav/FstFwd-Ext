@@ -72,7 +72,7 @@ body {
 #track_input{
  	width: 280px;
 	height: 28px;
-	display: inline-block;
+	display: inline;
 	background: whiteSmoke;
 	border-radius: 0 5px 5px 0;
 	border: 1px solid #000000;
@@ -251,11 +251,17 @@ body {
 	background: whiteSmoke;
 	border-radius: 0 5px 5px 0;
 	border: 1px solid #000000;
+	overflow-x: ellipsis;
 }
 
 .results_link{
 	padding: 9px 5px;
 	font-size: 11px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	display: inline-block;
+	max-width: 100%;
 }
 
 .error{

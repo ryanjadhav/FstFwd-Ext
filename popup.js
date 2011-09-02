@@ -81,6 +81,7 @@
 			},
 			error: function(){
 				console.log("There was an error with Spotify.");
+				$('.spotify_url').html("No Spotify results found.");
 				$('.spinner').hide();
 
 			}
@@ -125,6 +126,7 @@
 			},
 			error: function(){
 				console.log("There was an error with Grooveshark.");
+				$('.grooveshark_url').html('No Grooveshark results found.');							
 				$('.spinner').hide();
 
 			}
@@ -164,6 +166,7 @@
 	    },
 	    error: function(){
 	      console.log("there was an error with last.fm.");
+	      $('.last_fm_url').html("No Last.FM results found.");
 	      $('.spinner').hide();
 	    }
 	      
@@ -217,11 +220,16 @@
 		 		 	
 		  bgPage.oauth.sendSignedRequest(bgPage.DOCLIST_FEED, function(resp, xhr){
 		  	var data = JSON.parse(resp);	
-				console.log('Rdio Fetch:')
-				console.log(data);
-		
-				var rdio_url = data.result.results[0].shortUrl;						
-				$('.rdio_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + rdio_url +"\", \"selected\":true});window.close();'>"+ rdio_url +"</a>");	
+
+		  	if(data){
+					console.log('Rdio Fetch:')
+					console.log(data);
+				
+					var rdio_url = data.result.results[0].shortUrl;						
+					$('.rdio_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + rdio_url +"\", \"selected\":true});window.close();'>"+ rdio_url +"</a>");	
+		 		} else {
+		 			$('.rdio_url').html("No Rdio results found.");	
+		 		}
 		  }, params);
 		  
 		  $('.spinner').hide();
