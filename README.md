@@ -6,7 +6,7 @@ The purpose of this extension is to transform a link from one of the popular str
 
 Download Here: https://chrome.google.com/webstore/detail/jochlpckkpdadehemhehbpambplcogbh
 
-![UI](https://img.skitch.com/20110902-mg23a5rnt3hhu4nanm18nt4t9e.jpg "UI")
+![UI](https://img.skitch.com/20110903-1ey814t2xdikm8qib53s5dgtq4.jpg "UI")
 
 How To Use:
 
