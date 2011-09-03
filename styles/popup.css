@@ -15,7 +15,7 @@ body {
   overflow-x: hidden;
   font-family: 'Lucida Grande', Arial, san-serif, "Lucida Grande", sans-serif;
   font-size: 12px;
-	background: url("images/bg.png") repeat scroll 0 0 #EFEFEF;
+	background: url("../images/bg.png") repeat scroll 0 0 #EFEFEF;
 }
 
 #artist_input, #song_input{
@@ -39,7 +39,7 @@ body {
 }
 
 .spinner{
-	background: url("images/ajax-loader.gif") repeat scroll 0 0;
+	background: url("../images/ajax-loader.gif") repeat scroll 0 0;
 	width: 16px;
 	height: 16px;
 	display: inline-block;
@@ -76,6 +76,10 @@ body {
 	background: whiteSmoke;
 	border-radius: 0 5px 5px 0;
 	border: 1px solid #000000;
+}
+
+.input_error{
+	box-shadow: 0px 0 5px red;
 }
 
 .instructions{
@@ -262,10 +266,6 @@ body {
 	overflow: hidden;
 	display: inline-block;
 	max-width: 100%;
-}
-
-.error{
-  box-shadow:inset 0px 0px 1px red;
 }
 
 /* clearfix */

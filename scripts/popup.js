@@ -247,6 +247,9 @@
 		
 		console.log('split url:' + splitUrl[0]);
 		
+		$('#track_input').removeClass('input_error');
+
+		
 		if(splitUrl[0] == 'open.spotify.com'){
 			spotifyLookup(splitUrl[2], function(data){
 				callback.call(this, data);
@@ -260,6 +263,7 @@
 		} else if(splitUrl[0] =='grooveshark.com' || splitUrl[0] == 'www.grooveshark.com'){
 			callback.call(this, groovesharkLookup('', splitUrl[3]));
 		} else {
+			$('#track_input').addClass('input_error');
 			console.log('Not a Recognized URL.');
 		}
 	};
@@ -270,11 +274,11 @@
 		$('.track_link_container').delegate('.service_button', 'click', function(){
 			var selectedService = $(this).attr('service');
 			var userUrl = $('#track_input').val();
+
 			
 			parseUrl(userUrl, function(data){
 				$('.spinner').show();
 
-				$('#track_input').removeClass('error');
 				console.log('trackInfo: ');
 				console.log(data);
 				if(selectedService == 'spotify'){
@@ -286,7 +290,6 @@
 				} else if (selectedService == 'grooveshark'){
 					groovesharkFetch(data);
 				}	else {
-					$('#track_input').addClass('error');
 					console.log('Error unspecifed service.');
 				}	
 			});			
