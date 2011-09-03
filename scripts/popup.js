@@ -1,9 +1,5 @@
 (function(){
 	var bgPage = chrome.extension.getBackgroundPage();
-
-	//private artist and song.
-	//var artist, song;
-	
 	
 	/**
 	* Utility Functions:
