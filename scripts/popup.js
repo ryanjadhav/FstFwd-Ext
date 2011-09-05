@@ -53,7 +53,8 @@
 				}
 			},
 			error: function(){
-			  console.log("Error with Spotify lookup.")
+			  console.log("Error with Spotify lookup.");
+			  callback.call(this, trackInfo);
 			}	
 		});	
 	};
@@ -61,35 +62,38 @@
 	//private function for ajax request to spotify
 	var spotifyFetch = function(trackInfo){
 		console.log('performing a spotify fetch');
-
-		var query = createQuery(trackInfo.artist, trackInfo.track);
-		console.log('query: ' + query);
-
-		$.ajax({
-			url: 'http://ws.spotify.com/search/1/track.json?q=' + query,
-			success: function(data){
-				console.log("Spotify: ");
-				console.log(data);
-				if(!data || data.tracks.length == 0){
+		
+		if(trackInfo && trackInfo.artist && trackInfo.track){
+			var query = createQuery(trackInfo.artist, trackInfo.track);
+			console.log('query: ' + query);
+	
+			$.ajax({
+				url: 'http://ws.spotify.com/search/1/track.json?q=' + query,
+				success: function(data){
+					console.log("Spotify: ");
+					console.log(data);
+					if(!data || data.tracks.length == 0){
+						$('.spotify_url').html("No Spotify results found.");
+					} else {					
+						var trackCode = data.tracks[0].href.split(':');
+						var spotify_url = 'http://open.spotify.com/track/' + trackCode[2];
+					
+						$('.spotify_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + spotify_url +"\", \"selected\":true});window.close();'>" + spotify_url + "</a>");				
+					}
+					$('.spinner').hide();
+	
+				},
+				error: function(){
+					console.log("There was an error with Spotify.");
 					$('.spotify_url').html("No Spotify results found.");
-				} else {					
-					var trackCode = data.tracks[0].href.split(':');
-					var spotify_url = 'http://open.spotify.com/track/' + trackCode[2];
-				
-					$('.spotify_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + spotify_url +"\", \"selected\":true});window.close();'>" + spotify_url + "</a>");				
 				}
-				$('.spinner').hide();
-
-			},
-			error: function(){
-				console.log("There was an error with Spotify.");
-				$('.spotify_url').html("No Spotify results found.");
-
-			}
-		});	
+			});	
+		} else {			
+			console.log("Grooveshark search no song data.");
+			$('.spotify_url').html("No Spotify results found.");
+		}
 	};
 	
-	//TODO
 	var groovesharkLookup = function(artist, track){
 		console.log('performing grooveshark lookup');
 
@@ -102,35 +106,40 @@
 	//This api needs to call the real grooveshark api.
 	var groovesharkFetch = function(trackInfo){
 		console.log('performing a grooveshark fetch');
-
-		var query = createQuery(trackInfo.artist, trackInfo.track);
-		console.log('query: ' + query);		
-	
-		$.ajax({
-			url: 'http://tinysong.com/a/'+ query
-			+'?format=json&key=b4385955bd9dd410287d0b3c7ffee5c8',
-			success: function(data){
-				console.log("Grooveshark: ");
-				console.log(data);				
-				if(data.length === 2){				
-					$('.grooveshark_url').html('No Grooveshark results found.');				
-				} else {					
-					data = data.replace(/"/g, '');
-					data = data.replace(/\\/g, '');
-				
-					var grooveshark_url = unescape(data);
-				
-					$('.grooveshark_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + grooveshark_url +"\", \"selected\":true});window.close();'>" + grooveshark_url + "</a>");
+		
+		if(trackInfo && trackInfo.artist && trackInfo.track){
+			var query = createQuery(trackInfo.artist, trackInfo.track);
+			console.log('query: ' + query);		
+		
+			$.ajax({
+				url: 'http://tinysong.com/a/'+ query
+				+'?format=json&key=b4385955bd9dd410287d0b3c7ffee5c8',
+				success: function(data){
+					console.log("Grooveshark: ");
+					console.log(data);				
+					if(data.length === 2){				
+						$('.grooveshark_url').html('No Grooveshark results found.');				
+					} else {					
+						data = data.replace(/"/g, '');
+						data = data.replace(/\\/g, '');
+					
+						var grooveshark_url = unescape(data);
+					
+						$('.grooveshark_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + grooveshark_url +"\", \"selected\":true});window.close();'>" + grooveshark_url + "</a>");
+					}
+					$('.spinner').hide();
+		
+				},
+				error: function(){
+					console.log("There was an error with Grooveshark.");
+					$('.grooveshark_url').html('No Grooveshark results found.');							
+		
 				}
-				$('.spinner').hide();
-
-			},
-			error: function(){
-				console.log("There was an error with Grooveshark.");
-				$('.grooveshark_url').html('No Grooveshark results found.');							
-
-			}
-		});
+			});
+		} else {			
+			console.log("Grooveshark search no song data.");
+			$('.grooveshark_url').html('No Grooveshark results found.');
+		}
 	};
 	
 	var lastfmLookup = function(artist, track){
@@ -144,38 +153,40 @@
 	
 	var lastfmFetch = function(trackInfo){
 		console.log('performing last fm fetch');
-		if(trackInfo.artist){
+
+		if(trackInfo && trackInfo.artist && trackInfo.track){
 			trackInfo.artist = trackInfo.artist.replace(/\s/g, '+');
-		}
-		if(trackInfo.track){
 			trackInfo.track = trackInfo.track.replace(/\s/g, '+');
-		}
-		console.log(trackInfo);
-		
-	  $.ajax({
-	    url: 'http://ws.audioscrobbler.com/2.0/?method=track.getinfo&format=json&api_key=0cc6c91b6bf535eddc5fd9526eec1bb6&artist=' + trackInfo.artist + '&track=' + trackInfo.track,
-	    success: function(data){
-	      console.log("Object from LastFm: ");
-				console.log(data);
-	      if(!data || !data.track || data.message == "Track not found"){
-					$('.last_fm_url').html("No Last.FM results found.");
-				} else {					
-					var last_fm_url = data.track.url;
-				
-					$('.last_fm_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + last_fm_url +"\", \"selected\":true});window.close();'>"+ last_fm_url +"</a>");
-				}   
-				$('.spinner').hide();
-	    },
-	    error: function(){
-	      console.log("there was an error with last.fm.");
-	      $('.last_fm_url').html("No Last.FM results found.");
-	    }
-	      
-	  });
+			console.log('query: ' + trackInfo);		
+
+		  $.ajax({
+		    url: 'http://ws.audioscrobbler.com/2.0/?method=track.getinfo&format=json&api_key=0cc6c91b6bf535eddc5fd9526eec1bb6&artist=' + trackInfo.artist + '&track=' + trackInfo.track,
+		    success: function(data){
+		      console.log("Object from LastFm: ");
+					console.log(data);
+		      if(!data || !data.track || data.message == "Track not found"){
+						$('.last_fm_url').html("No Last.FM results found.");
+					} else {					
+						var last_fm_url = data.track.url;
+					
+						$('.last_fm_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + last_fm_url +"\", \"selected\":true});window.close();'>"+ last_fm_url +"</a>");
+					}   
+					$('.spinner').hide();
+		    },
+		    error: function(){
+		      console.log("there was an error with last.fm.");
+		      $('.last_fm_url').html("No Last.FM results found.");
+		    }
+		      
+		  });
+	  } else {
+			console.log("Last.FM search no song data.");
+	  	$('.last_fm_url').html("No Last.FM results found.");
+	  }
 	};
 	
 	var rdioLookup = function(userUrl, callback){
-		callback.call(this, bgPage.oauth.authorize(function(trackInfo){
+		bgPage.oauth.authorize(function(trackInfo){
 			console.log('performing a rdio lookup');			
 			var params2 = {
 		  	'method' : 'getObjectFromShortCode',
@@ -187,53 +198,63 @@
 		    'body': stringify(params2)
 		  };
 		  		 		 	
-		 	callback.call(this, bgPage.oauth.sendSignedRequest(bgPage.DOCLIST_FEED, function(resp, xhr){
+		 	bgPage.oauth.sendSignedRequest(bgPage.DOCLIST_FEED, function(resp, xhr){
 		  	var data = JSON.parse(resp);	
 				console.log('Rdio Lookup:')
 				console.log(data);
-				var trackInfo = {
-					'artist': data.result.artist,
-					'track': data.result.name 
-				};
-				callback.call(this, trackInfo);
-			}, params));
-		}));	
+				
+				if(!data  || !data.result.artist || !data.result.name){
+					console.log('RdioLookup: trackInfo is undefined');
+					callback.call(this, trackInfo);
+				} else{
+					var trackInfo = {
+						'artist': data.result.artist,
+						'track': data.result.name 
+					};
+					callback.call(this, trackInfo);
+				}
+			}, params);
+		});	
 	};
 	
 
-	var rdioFetch = function(trackInfo){		
-		bgPage.oauth.authorize(function(){			
-			var query = createQuery(trackInfo.artist, trackInfo.track);
+	var rdioFetch = function(trackInfo){
+		if(trackInfo && trackInfo.artist !== undefined && trackInfo.track !== undefined){	
+			bgPage.oauth.authorize(function(){			
+				var query = createQuery(trackInfo.artist, trackInfo.track);
+				
+				console.log(trackInfo.artist);
 			
-			console.log(trackInfo.artist);
-		
-		  var params2 = {
-		  	'method' : 'search',
-				'query' : query,
-				'types' : 'Track',
-				'count' : '1'
-		  };
-		    
-		  var params = {	
-		    'method': 'POST',
-		    'body': stringify(params2)
-		  };
-		 		 	
-		  bgPage.oauth.sendSignedRequest(bgPage.DOCLIST_FEED, function(resp, xhr){
-		  	var data = JSON.parse(resp);	
-		  	
-		  	console.log('Rdio Fetch:')
-				console.log(data);
-
-		  	if(!data  || data.result.results.length == 0){
-		  		$('.rdio_url').html("No Rdio results found.");	
-		  	} else{
-					var rdio_url = data.result.results[0].shortUrl;					
-					$('.rdio_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + rdio_url +"\", \"selected\":true});window.close();'>"+ rdio_url +"</a>");	
-		 		} 
-		  }, params);
-		  
-		});
+			  var params2 = {
+			  	'method' : 'search',
+					'query' : query,
+					'types' : 'Track',
+					'count' : '1'
+			  };
+			    
+			  var params = {	
+			    'method': 'POST',
+			    'body': stringify(params2)
+			  };
+			 		 	
+			  bgPage.oauth.sendSignedRequest(bgPage.DOCLIST_FEED, function(resp, xhr){
+			  	var data = JSON.parse(resp);	
+			  	
+			  	console.log('Rdio Fetch:')
+					console.log(data);
+	
+			  	if(!data || data.result.results.length == 0){
+			  		$('.rdio_url').html("No Rdio results found.");	
+			  	} else{
+						var rdio_url = data.result.results[0].shortUrl;					
+						$('.rdio_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + rdio_url +"\", \"selected\":true});window.close();'>"+ rdio_url +"</a>");	
+			 		} 
+			  }, params);
+			  
+			});
+		} else {
+			$('.rdio_url').html("No Rdio results found.");
+		}
 	};
 	
 	/**
@@ -280,6 +301,11 @@
 
 				console.log('trackInfo: ');
 				console.log(data);
+				
+				if(!data || data === undefined || data.artist === undefined || data.track === undefined){
+					console.log("trackInfo is undefined");
+				}
+				
 				if(selectedService == 'spotify'){
 					spotifyFetch(data);
 				}	else if(selectedService == 'lastfm'){
@@ -291,7 +317,7 @@
 				}	else {
 					console.log('Error unspecifed service.');
 				}
-				
+			
 				$('.spinner').hide();
 			});			
 		});
@@ -308,6 +334,10 @@
 				
 				console.log('trackInfo: ');
 				console.log(data);
+				
+				if(!data || data === undefined || data.artist === undefined || data.track === undefined){
+					console.log("trackInfo is undefined");
+				}
 				
 				spotifyFetch(data);
 				lastfmFetch(data);
