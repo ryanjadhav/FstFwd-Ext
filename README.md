@@ -12,10 +12,10 @@ How To Use:
 
 1. Enter in a link from either Spotify, Rdio, Grooveshark, or Last.FM. 
 2. Click on the colored button of the music streaming service you prefer. Your original link will be transformed!
-Hitting "Enter" on your keyboard will search all services. 
 3. Click or copy the outputted link and enjoy your music. 
 
 NOTE: Rdio requires oauth authentication.
+- Hitting "Enter" on your keyboard will search all services. 
 
 Limitations:
 
