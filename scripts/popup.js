@@ -276,21 +276,20 @@
 			});
 		} else if(splitUrl[0] == 'last.fm' || splitUrl[0] == 'www.last.fm'){
 			callback.call(this, lastfmLookup(splitUrl[2], splitUrl[4]));
-		} else if(splitUrl[0] == 'rd.io') {
+		} else if(splitUrl[0] == 'rd.io' && bgPage.RDIO_PREF) {
 			rdioLookup(splitUrl[2], function(data){
 				callback.call(this, data);
 			});
 		} else if(splitUrl[0] =='grooveshark.com' || splitUrl[0] == 'www.grooveshark.com'){
 			callback.call(this, groovesharkLookup('', splitUrl[3]));
 		} else {
-			$('#track_input').addClass('input_error');
+			$('#track_input').addClass('input_error').blur();
 			console.log('Not a Recognized URL.');
 		}
 	};
 	
 	var callAll = function(){
 		var userUrl = $('#track_input').val();
-		var rdioChecked = $('#rdio_check').is(':checked');
 
 		parseUrl(userUrl, function(data){
 			$('.spinner').show();
@@ -306,7 +305,7 @@
 			lastfmFetch(data);
 			groovesharkFetch(data);	
 			
-			if(rdioChecked){
+			if(bgPage.RDIO_PREF){
 				rdioFetch(data);
 			} else {
 				$('.rdio_url').html("Rdio disabled.");	
@@ -318,7 +317,7 @@
 	
 	$(document).ready(function(){
 		$('.spinner').hide();
-	
+					
 		$('.track_link_container').delegate('.service_button', 'click', function(){
 			var selectedService = $(this).attr('service');
 			var userUrl = $('#track_input').val();
@@ -357,5 +356,12 @@
 				callAll();
 			}
 		});
+		
+		$('#rdio_check').click(function(){
+			var rdioChecked = $('#rdio_check').is(':checked');
+			bgPage.setRdioPref(rdioChecked);
+		});
+		
+		$('#rdio_check').attr('checked', bgPage.RDIO_PREF);		
 	});	
 })();
