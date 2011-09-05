@@ -88,6 +88,11 @@ body {
 	float:right;
 }
 
+.all_header:hover{
+	cursor: pointer;
+	color: #0F80F8
+}
+
 .artist_container, .song_container, .track_container, .submit_container{
   display: inline;
 }
@@ -265,7 +270,7 @@ body {
 	white-space: nowrap;
 	overflow: hidden;
 	display: inline-block;
-	max-width: 100%;
+	max-width: 480px;
 }
 
 /* clearfix */

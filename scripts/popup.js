@@ -288,6 +288,28 @@
 		}
 	};
 	
+	var callAll = function(){
+		var userUrl = $('#track_input').val();
+
+		parseUrl(userUrl, function(data){
+			$('.spinner').show();
+			
+			console.log('trackInfo: ');
+			console.log(data);
+			
+			if(!data || data === undefined || data.artist === undefined || data.track === undefined){
+				console.log("trackInfo is undefined");
+			}
+			
+			spotifyFetch(data);
+			lastfmFetch(data);
+			rdioFetch(data);
+			groovesharkFetch(data);	
+			
+			$('.spinner').hide();
+		});	
+	};
+	
 	$(document).ready(function(){
 		$('.spinner').hide();
 	
@@ -323,29 +345,11 @@
 		});
 	});	
 	
-	$(document).bind('keypress', function(e){
-		var userUrl = $('#track_input').val();
-		var checked = $('#all_input').is(':checked');
+	$('.all_header').bind('click', callAll);
 	
-		if(e.keyCode == 13 && checked){
-
-			parseUrl(userUrl, function(data){
-				$('.spinner').show();
-				
-				console.log('trackInfo: ');
-				console.log(data);
-				
-				if(!data || data === undefined || data.artist === undefined || data.track === undefined){
-					console.log("trackInfo is undefined");
-				}
-				
-				spotifyFetch(data);
-				lastfmFetch(data);
-				rdioFetch(data);
-				groovesharkFetch(data);	
-				
-				$('.spinner').hide();
-			});	
+	$(document).bind('keypress', function(e){
+		if(e.keyCode == 13){
+			callAll();
 		}
 	});
 })();
