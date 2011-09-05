@@ -7,8 +7,14 @@
 	//create a standard query
 	var createQuery = function(artist, song){	
 		var middle_concat;
-		artist = artist.replace(/\s/g, '+');
-		song = song.replace(/\s/g, '+');
+		if(artist){
+			artist = artist.replace(/\s/g, '+');
+		} 
+		
+		if(song){
+			song = song.replace(/\s/g, '+');
+		}
+		
 		song ? middle_concat = '+' : middle_contcat = '';
 		
 		return artist + middle_concat + song;
@@ -138,10 +144,12 @@
 	
 	var lastfmFetch = function(trackInfo){
 		console.log('performing last fm fetch');
-
-		trackInfo.artist = trackInfo.artist.replace(/\s/g, '+');
-		trackInfo.track = trackInfo.track.replace(/\s/g, '+');
-		
+		if(trackInfo.artist){
+			trackInfo.artist = trackInfo.artist.replace(/\s/g, '+');
+		}
+		if(trackInfo.track){
+			trackInfo.track = trackInfo.track.replace(/\s/g, '+');
+		}
 		console.log(trackInfo);
 		
 	  $.ajax({
@@ -213,16 +221,16 @@
 		 		 	
 		  bgPage.oauth.sendSignedRequest(bgPage.DOCLIST_FEED, function(resp, xhr){
 		  	var data = JSON.parse(resp);	
+		  	
+		  	console.log('Rdio Fetch:')
+				console.log(data);
 
-		  	if(data){
-					console.log('Rdio Fetch:')
-					console.log(data);
-				
-					var rdio_url = data.result.results[0].shortUrl;						
+		  	if(!data  || data.result.results.length == 0){
+		  		$('.rdio_url').html("No Rdio results found.");	
+		  	} else{
+					var rdio_url = data.result.results[0].shortUrl;					
 					$('.rdio_url').html("<a href='javascript:chrome.tabs.create({\"url\":\"" + rdio_url +"\", \"selected\":true});window.close();'>"+ rdio_url +"</a>");	
-		 		} else {
-		 			$('.rdio_url').html("No Rdio results found.");	
-		 		}
+		 		} 
 		  }, params);
 		  
 		});
