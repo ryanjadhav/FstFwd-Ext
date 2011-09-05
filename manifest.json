@@ -1,6 +1,6 @@
 {
   "name": "FstFwd",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "description": "An extension that transforms links from Rdio, Grooveshark, Last.FM or Spotify into another link from one of those services.",
   "icons": { 
   	"16": "images/fstfwd-icon-16.png",
