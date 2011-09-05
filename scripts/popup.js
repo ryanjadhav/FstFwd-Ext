@@ -290,6 +290,7 @@
 	
 	var callAll = function(){
 		var userUrl = $('#track_input').val();
+		var rdioChecked = $('#rdio_check').is(':checked');
 
 		parseUrl(userUrl, function(data){
 			$('.spinner').show();
@@ -303,8 +304,13 @@
 			
 			spotifyFetch(data);
 			lastfmFetch(data);
-			rdioFetch(data);
 			groovesharkFetch(data);	
+			
+			if(rdioChecked){
+				rdioFetch(data);
+			} else {
+				$('.rdio_url').html("Rdio disabled.");	
+			}
 			
 			$('.spinner').hide();
 		});	
