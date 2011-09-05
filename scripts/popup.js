@@ -343,13 +343,13 @@
 				$('.spinner').hide();
 			});			
 		});
+		
+		$('.all_header').bind('click', callAll);
+	
+		$(document).bind('keypress', function(e){
+			if(e.keyCode == 13){
+				callAll();
+			}
+		});
 	});	
-	
-	$('.all_header').bind('click', callAll);
-	
-	$(document).bind('keypress', function(e){
-		if(e.keyCode == 13){
-			callAll();
-		}
-	});
 })();
