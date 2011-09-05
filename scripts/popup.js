@@ -78,7 +78,6 @@
 			error: function(){
 				console.log("There was an error with Spotify.");
 				$('.spotify_url').html("No Spotify results found.");
-				$('.spinner').hide();
 
 			}
 		});	
@@ -123,7 +122,6 @@
 			error: function(){
 				console.log("There was an error with Grooveshark.");
 				$('.grooveshark_url').html('No Grooveshark results found.');							
-				$('.spinner').hide();
 
 			}
 		});
@@ -163,7 +161,6 @@
 	    error: function(){
 	      console.log("there was an error with last.fm.");
 	      $('.last_fm_url').html("No Last.FM results found.");
-	      $('.spinner').hide();
 	    }
 	      
 	  });
@@ -228,8 +225,6 @@
 		 		}
 		  }, params);
 		  
-		  $('.spinner').hide();
-
 		});
 	};
 	
@@ -287,8 +282,32 @@
 					groovesharkFetch(data);
 				}	else {
 					console.log('Error unspecifed service.');
-				}	
+				}
+				
+				$('.spinner').hide();
 			});			
 		});
 	});	
+	
+	$(document).bind('keypress', function(e){
+		var userUrl = $('#track_input').val();
+		var checked = $('#all_input').is(':checked');
+	
+		if(e.keyCode == 13 && checked){
+
+			parseUrl(userUrl, function(data){
+				$('.spinner').show();
+				
+				console.log('trackInfo: ');
+				console.log(data);
+				
+				spotifyFetch(data);
+				lastfmFetch(data);
+				rdioFetch(data);
+				groovesharkFetch(data);	
+				
+				$('.spinner').hide();
+			});	
+		}
+	});
 })();

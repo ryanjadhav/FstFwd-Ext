@@ -11,15 +11,11 @@ html[xmlns] .clearfix {
 }
 
 body {
-  min-width:550px;
+  min-width:575px;
   overflow-x: hidden;
   font-family: 'Lucida Grande', Arial, san-serif, "Lucida Grande", sans-serif;
   font-size: 12px;
 	background: url("../images/bg.png") repeat scroll 0 0 #EFEFEF;
-}
-
-#artist_input, #song_input{
-  border: 1px solid #000000;
 }
 
 .header{
@@ -42,7 +38,7 @@ body {
 	background: url("../images/ajax-loader.gif") repeat scroll 0 0;
 	width: 16px;
 	height: 16px;
-	display: inline-block;
+	display: inline-table;
 	margin-top: 21px;
 	margin-left: 5px;
 }
@@ -85,7 +81,11 @@ body {
 .instructions{
 	text-transform: uppercase;
 	font-size: 11px;
-	margin-bottom: 3px;
+	margin-bottom: 5px;
+}
+
+.all_header{
+	float:right;
 }
 
 .artist_container, .song_container, .track_container, .submit_container{
@@ -249,7 +249,7 @@ body {
 }
 
 .service_result{
-	width: 466px;
+	width: 491px;
 	height: 30px;
 	display: inline-block;
 	background: whiteSmoke;
